@@ -45,22 +45,21 @@ of dotnet that was practical (.netframework4.8 or .net 6).
 
 If .netframework was the best option mono was used on linux.
 
-## Example dotnet and mono builds
+## Example Unscrambler and mono builds
 
-De4dot commands to build in dotnet:
+Unscrambler commands to build in dotnet:
 
 ```bash
-git clone https://github.com/de4dot/de4dot.git
-cd de4dot
-# This builds a full binary and is large
-dotnet publish de4dot.netcore.sln --runtime=linux-x64 --framework=netcoreapp3.1 -c Release
+git clone https://github.com/dr4k0nia/Unscramblert
 # This builds just the dlls and can be run using dotnet binary and is much smaller and preferred
-dotnet build de4dot.netcore.sln -c release
+dotnet build Unscrambler.sln  --configuration Release --framework net8.0
 # Take the contents of the Release directory.
 ```
 
-You can then run de4dot with the command:
-./Release/netcoreapp3.1/linux-x64/de4dot
+https://github.com/dr4k0nia/Unscrambler
+```dotnet build Unscrambler.sln  --configuration Release --framework net8.0```
+(Note code had to be migrated to dotnet from dotnet framework first)
+
 
 Mono built repos example:
 https://github.com/NotPrab/AgileStringDecryptor.git
@@ -68,3 +67,4 @@ https://github.com/NotPrab/AgileStringDecryptor.git
 
 https://github.com/wwh1004/ConfuserExTools.git
 `msbuild -restore ConfuserExTools.sln`
+
