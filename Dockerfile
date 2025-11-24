@@ -1,8 +1,8 @@
 ARG REGISTRY="docker.io/library"
 ARG BUILD_IMAGE='python'
-ARG BUILD_TAG='3.12-bookworm'
+ARG BUILD_TAG='3.12-trixie'
 ARG BASE_IMAGE='python'
-ARG BASE_TAG='3.12-slim-bookworm'
+ARG BASE_TAG='3.12-slim-trixie'
 
 FROM $REGISTRY/$BUILD_IMAGE:$BUILD_TAG AS builder
 ENV DEBIAN_FRONTEND=noninteractive
@@ -19,15 +19,9 @@ COPY debian.txt /tmp/src/
 # Add micoroft gpg keys.
 RUN apt-get update && \
     apt-get install curl -y --no-install-recommends && \
-    curl -sSL -O https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb && \
+    curl -sSL -O https://packages.microsoft.com/config/debian/13/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb
-# Add Mono
-RUN apt install dirmngr ca-certificates gnupg -y
-RUN gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/mono-official-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-RUN echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/debian stable-buster main" | tee /etc/apt/sources.list.d/mono-official-stable.list
-RUN apt update
-RUN apt-get install mono-complete -y
 
 RUN apt-get update && \
     apt-get upgrade -y && \
@@ -61,15 +55,9 @@ COPY debian.txt /tmp/src/
 # Add micoroft gpg keys.
 RUN apt-get update && \
     apt-get install curl -y --no-install-recommends && \
-    curl -sSL -O https://packages.microsoft.com/config/debian/12/packages-microsoft-prod.deb && \
+    curl -sSL -O https://packages.microsoft.com/config/debian/13/packages-microsoft-prod.deb && \
     dpkg -i packages-microsoft-prod.deb && \
     rm packages-microsoft-prod.deb
-# Add Mono
-RUN apt install dirmngr ca-certificates gnupg -y
-RUN gpg --homedir /tmp --no-default-keyring --keyring /usr/share/keyrings/mono-official-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-RUN echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/debian stable-buster main" | tee /etc/apt/sources.list.d/mono-official-stable.list
-RUN apt update
-RUN apt-get install mono-complete -y
 
 RUN apt-get update && \
     apt-get upgrade -y && \
