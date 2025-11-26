@@ -50,15 +50,15 @@ If .netframework was the best option mono was used on linux.
 Unscrambler commands to build in dotnet:
 
 ```bash
-git clone https://github.com/dr4k0nia/Unscramblert
+git clone https://github.com/AustralianCyberSecurityCentre/Unscrambler
 # This builds just the dlls and can be run using dotnet binary and is much smaller and preferred
 dotnet build Unscrambler.sln  --configuration Release --framework net8.0
 # Take the contents of the Release directory.
 ```
 
-https://github.com/dr4k0nia/Unscrambler
+https://github.com/AustralianCyberSecurityCentre/Unscrambler
 ```dotnet build Unscrambler.sln  --configuration Release --framework net8.0```
-(Note code had to be migrated to dotnet from dotnet framework first)
+(Note code had to be migrated to dotnet from dotnet framework first which is why it's a fork)
 
 
 Mono built repos example:
