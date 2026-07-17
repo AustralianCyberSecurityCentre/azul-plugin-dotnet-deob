@@ -25,7 +25,7 @@ class ExceptionMapping:
 class Deobfuscator:
     """Base Deobfuscators used to deobfuscate dotnet binaries, all other deobfuscators are based on this one."""
 
-    key: str  # Identifying string for the deobfuscator.
+    key: ClassVar[str]  # Identifying string for the deobfuscator.
     display_name: str  # Pretty name for the deobfuscator to appear on the UI.
     rel_path_to_exe: str  # Relative path to the Deobfuscators executable.
     regex_exception_mappings: list[ExceptionMapping]  # list of tuples with a regex and a corresponding exception type
@@ -46,8 +46,8 @@ class Deobfuscator:
         raise NotImplementedError()
 
     def _deobfuscate(
-        self, commandList: list[str], expected_out_file_loc: str, stdin: str = None
-    ) -> tuple[str | None, str]:
+        self, commandList: list[str], expected_out_file_loc: str, stdin: str | None = None
+    ) -> tuple[str | None, str | None]:
         try:
             res: subprocess.CompletedProcess = subprocess.run(  # nosec: B603
                 args=commandList,
@@ -68,8 +68,7 @@ class Deobfuscator:
                 return expected_out_file_loc, None
 
             # Failed to produce expected output file without error.
-            err_msg = f"Failed to produce the expected output file {expected_out_file_loc} contents of the out"
-            +f" directory are {os.listdir(os.path.basename(expected_out_file_loc))}."
+            err_msg = f"Failed to produce the expected output file {expected_out_file_loc} contents of the out directory are {os.listdir(os.path.basename(expected_out_file_loc))}."
             return None, err_msg
 
         except OSError:
