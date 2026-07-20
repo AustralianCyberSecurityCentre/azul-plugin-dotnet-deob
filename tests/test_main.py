@@ -1,5 +1,7 @@
 """Test cases for plugin output."""
 
+from typing import Any
+
 from azul_runner import (
     FV,
     Event,
@@ -7,6 +9,7 @@ from azul_runner import (
     EventParent,
     JobResult,
     State,
+    DataLabel,
     test_template,
 )
 
@@ -17,7 +20,7 @@ from azul_plugin_dotnet_deob.main import AzulPluginDotnetDeob
 class TestExecute(test_template.TestPlugin):
     PLUGIN_TO_TEST = AzulPluginDotnetDeob
 
-    def DEFAULT_CONFIG(self):
+    def DEFAULT_CONFIG(self) -> dict[str, Any]:
         """Get the default config."""
         return {
             "deobfuscators": [
@@ -41,16 +44,14 @@ class TestExecute(test_template.TestPlugin):
                 events=[
                     Event(
                         parent=EventParent(
-                            entity_type="binary",
-                            entity_id="d30feab410f4b260f6ec56d39969ac8673a585fae4c1308d51136bcd8af0100d",
+                            sha256="d30feab410f4b260f6ec56d39969ac8673a585fae4c1308d51136bcd8af0100d",
                         ),
-                        entity_type="binary",
-                        entity_id="f457e1bf7090e0db87d6facf28fe74262c003c3b383157b5fe5c9d80c7a5f6db",
+                        sha256="f457e1bf7090e0db87d6facf28fe74262c003c3b383157b5fe5c9d80c7a5f6db",
                         relationship={"action": "deobfuscated", "deobfuscated_by": "de4dot-cex"},
                         data=[
                             EventData(
                                 hash="f457e1bf7090e0db87d6facf28fe74262c003c3b383157b5fe5c9d80c7a5f6db",
-                                label="content",
+                                label=DataLabel.CONTENT,
                             )
                         ],
                     )
@@ -73,11 +74,9 @@ class TestExecute(test_template.TestPlugin):
                 events=[
                     Event(
                         parent=EventParent(
-                            entity_type="binary",
-                            entity_id="61637f9940e5e336571cbf945be0f36d6d6050e06288df0f0232d93b26f0bde7",
+                            sha256="61637f9940e5e336571cbf945be0f36d6d6050e06288df0f0232d93b26f0bde7",
                         ),
-                        entity_type="binary",
-                        entity_id="41b72f11583563733b693f6b9d94ca2964054834645bc74a2b2ba445620460fb",
+                        sha256="41b72f11583563733b693f6b9d94ca2964054834645bc74a2b2ba445620460fb",
                         relationship={
                             "action": "deobfuscated",
                             "deobfuscated_by": "ConfuserEx-Static-String-Decryptor,de4dot-cex",
@@ -85,7 +84,7 @@ class TestExecute(test_template.TestPlugin):
                         data=[
                             EventData(
                                 hash="41b72f11583563733b693f6b9d94ca2964054834645bc74a2b2ba445620460fb",
-                                label="content",
+                                label=DataLabel.CONTENT,
                             )
                         ],
                     )
@@ -120,8 +119,7 @@ class TestExecute(test_template.TestPlugin):
                 state=State(State.Label.COMPLETED),
                 events=[
                     Event(
-                        entity_type="binary",
-                        entity_id="b13049711027802304b0f50291d5557e76113b46c0a2258b919e65d519ace2f2",
+                        sha256="b13049711027802304b0f50291d5557e76113b46c0a2258b919e65d519ace2f2",
                         features={"malformed": [FV("Dotnetfile is shorter than the header specifies.")]},
                     )
                 ],
