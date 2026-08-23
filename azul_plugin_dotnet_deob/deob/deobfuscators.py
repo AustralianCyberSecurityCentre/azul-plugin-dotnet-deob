@@ -49,7 +49,7 @@ class Deobfuscator:
         self, commandList: list[str], expected_out_file_loc: str, stdin: str | None = None
     ) -> tuple[str | None, str | None]:
         try:
-            res: subprocess.CompletedProcess = subprocess.run(  # nosec: B603
+            res: subprocess.CompletedProcess = subprocess.run(  # noqa: S603
                 args=commandList,
                 input=stdin,
                 stdout=subprocess.PIPE,
