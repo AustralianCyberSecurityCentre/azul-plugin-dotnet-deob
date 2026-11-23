@@ -72,7 +72,7 @@ class AzulPluginDotnetDeob(BinaryPlugin):
 
             newest_file_path = src_file_path
             for deob in deobs.AVAILABLE_DEOBFUSCATORS:
-                if deob.key not in self.cfg.deobfuscators:  # ty: ignore[unresolved-attribute] ty does not understand add_settings()
+                if deob.key not in self.cfg.deobfuscators:  # ty: ignore[missing-attribute] ty does not understand add_settings()
                     continue
 
                 result_file_path, error = deob.deobfuscate(newest_file_path)
